@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+	<title>Jonny</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link href="css/index.css" rel="stylesheet" type="text/css">
+	<link href="css/preloader.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<script type='text/javascript' src='spoersmaal2.js'></script>
+	<script type="text/javascript">
+	// https://emojipedia.org/symbols/
+		setTimeout(showPage, 14);
+	  function showPage() {
+			document.getElementById("loader").style.visibility = "hidden";
+			document.getElementById("loader").style.opacity = 0;
+	    setTimeout(() => {
+	      document.getElementById("loader").style.display = "none";
+	    },500)
+	  }
+		let totalQuestions = 3;
+		let data = tdt4109;
+		let allAnswers = [];
+		let contents, qna, result;
+		let sliderange, sliderangedsp;
+		let estudy, eback, questions, confirmAnswer;
+		// Onload DOM and Event setups. Also calls some functions to initialize the app.
+		window.onload = () => {
+		// DOM - footer
+			contents = document.getElementsByClassName('contents');
+			qna = document.getElementById('qna');
+			result = document.getElementById('result');
+			eback = document.getElementById('eback');
+			eback.onclick = () => {
+				openClose(false,qna);
+				openClose(false,result);
+			}
+			estudy = document.getElementById('estudy');
+			estudy.onclick = () => {
+				getDataQuestions();
+				openClose(true,qna);
+			}
+			sliderange = document.getElementById('sliderange');
+			sliderangedsp = document.getElementById('sliderangedsp');
+			sliderangedsp.innerText = sliderange.value;
+			totalQuestions = +sliderange.value;
+			sliderange.oninput = () => {
+				sliderangedsp.innerText = sliderange.value;
+				totalQuestions = +sliderange.value;
+			}
+			questions = document.getElementById('questions');
+			confirmAnswer = document.getElementById('confirmAnswer');
+			confirmAnswer.onclick = () => checkAnswers(questions);
+			getDataQuestions();
+		}
+		function checkAnswers(input) {
+			allInputs = document.getElementsByClassName('choices');
+			// console.log(allInputs);
+			let checked = [];
+			for (let input of allInputs) {
+				if (input.checked) {
+					checked.push({name: input, id: input.id});
+				}
+			}
+			console.log(checked)
+			if (checked.length != totalQuestions) {
+				console.log("CHECK ALL QUESTIONS!")
+			} else {
+				let totalCorrect = 0;
+				for (let input of allInputs) {
+					input.disabled = true;
+				}
+				for (let i = 0; i < checked.length; i++) {
+					let text = checked[i]["name"].parentNode.lastElementChild.innerText;
+					if (text == allAnswers[i]) {
+						checked[i]["name"].parentNode.style.backgroundColor = 'lime';
+						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#52e45285';
+						totalCorrect++;
+					} else {
+						checked[i]["name"].parentNode.style.backgroundColor = 'red';
+						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#f36e6e85';
+						let checkForCorrect = document.getElementsByName(i);
+						for (let c of checkForCorrect) {
+							let text = c.parentNode.lastElementChild.innerText;
+							if (text == allAnswers[i]) {
+								c.parentNode.style.color = 'lime';
+							}
+						}
+					}
+				}
+				result.firstElementChild.innerHTML = `${totalCorrect} / ${sliderange.value} answered correctly!`;
+				openClose(true,result);
+			}
+		}
+		function getDataQuestions() {
+			let splittedQuestions = getQuestions(totalQuestions,data);
+			console.log(splittedQuestions);
+			displayQuestions(splittedQuestions,questions)
+			allAnswers = splittedQuestions.map(x => x.R);
+		}
+		function displayQuestions(q,output) {
+      output.innerHTML = "";
+			for (let i = 0; i < q.length; i++) {
+				let choices = q[i].A;
+				let question = q[i].Q;
+				let html = `
+				<div>
+					<div>
+					<p>${question}</p>
+				`;
+				for (let j = 0; j < choices.length; j++) {
+					html += `
+						<p>
+							<input type="radio" class="choices" name="${i}" id="${i}${j}">
+							<label for="${i}${j}">${choices[j]}</label>
+						</p>
+					`;
+				};
+				html += `
+					</div>
+				</div>
+				`;
+				output.innerHTML += html;
+			}
+
+		}
+		const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
+		function getQuestions(quantity,input) {
+			const max = input.length;
+			newList = []
+			while (newList.length !== quantity) {
+				let rnd = getRndInteger(0,max);
+				if (newList.indexOf(rnd) == -1) {
+					newList.push(rnd);
+				}
+			}
+			newnewList = []
+			for (let i of newList) {
+				newnewList.push(input[i]);
+			}
+			return newnewList
+		}
+		// Custom function for toggling CSS animations after a given time.
+		function toggleAnimate(dom,animateName,time=1400) {
+			dom.classList.toggle(animateName);
+			setTimeout(() =>{
+				dom.classList.toggle(animateName);
+			},time);
+		}
+		// Custom function to open/close popups.
+		function openClose(bool,dom,animateType=1) {
+		  if (bool) {
+		    dom.style.visibility = 'visible';
+		    dom.style.opacity = '1';
+
+				if (animateType !== 0) {
+					for (let i = 0; i < dom.childElementCount; i++) {
+						toggleAnimate(dom.children[i],`animate-${animateType}`);
+					}
+				}
+		  } else {
+		    dom.style.visibility = 'hidden';
+		    dom.style.opacity = '0';
+		  }
+		}
+	</script>
+</head>
+<body>
+	<div id="loader">
+		<div class="spinner" preload></div>
+	</div>
+
+	<!-- Header -->
+	<header>
+		<h2>Multiple-choice-app - Shirajuki</h2>
+		<br><br>
+	</header>
+	<br>
+	<!-- Main -->
+	<main>
+		<!-- PAGE 1 -->
+		<div class='contents' id="page1">
+			<br>
+			<div>
+				<div class="dataPacks">
+					<div>
+						<p>
+							<input type="radio" name="data" id="data1" checked>
+							<label for="data1">TDT4109</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data2">
+							<label for="data2">IT2508</label>
+						</p>
+					</div>
+					<input id="sliderange" type="range" name="" min="1" max="30" value="10"/>
+					<p id="sliderangedsp">69</p>
+				</div>
+			</div>
+			<br><br>
+			<div class='divButtons'>
+				<button id='estudy' class='btn'>Study</button>
+			</div>
+		</div>
+	</main>
+	<!-- APP -->
+	<div class="popup" id="qna">
+		<div id="questions">
+			<!-- add elements here -->
+		</div>
+		<br/>
+		<div>
+			<p><a id='eback'><i>⬅</i> RETURN</a></p>
+			<button id='confirmAnswer' class='btn'>confirmAnswer</button>
+		</div>
+	</div>
+	<!-- RESULTS -->
+	<div class="popup" id="result">
+		<p>3 / 7 answered correct!</p>
+	</div>
+</body>
+</html>

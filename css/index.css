@@ -1,0 +1,350 @@
+:root {
+  /* --theme-color1: #f7a7b9; */
+  --theme-color1: #5f5365;
+  --theme-color2: #84ceeb;
+  --theme-color3: #3f6675;
+  --theme-color4: #c1c8e4;
+  --theme-color5: #8860d0;
+  --text-color1: black;
+  --text-color2: #888;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+/* @media only screen and (max-width: 400px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+} */
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.8);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8b8b9a;
+  -webkit-box-shadow: inset 0 0 4px rgba(255,255,255,0.8);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(150,150,150,0.4);
+}
+* {
+  /* disable text selection */
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+@font-face {
+  font-family: 'notoEmoji';
+  src: url('../fonts/notoemoji.ttf') format('truetype'),
+   url('../fonts/notoemoji.woff') format('woff'),
+   url('../fonts/notoemoji.woff2') format('woff2');
+}
+html {
+  font-family: Arial,'Hiragino Sans GB',STXihei,'Microsoft YaHei',sans-serif;
+  text-align: center;
+  background-color: var(--theme-color1);
+  color: white;
+  font-size: 12pt;
+  zoom: 1.1;
+}
+header {
+  line-height: 13pt;
+  font-weight: bold;
+}
+header h2 {
+  border-bottom: 5px solid #ffffff99;
+  padding-bottom: 20px;
+}
+body {
+  overflow: hidden;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+#page1>div>div:first-child {
+  background-color: #ffffff11;
+  border: 5px solid white;
+  padding: 5px;
+  width: 90%;
+    box-shadow: 5px 7px rgba(255,220,220,0.9);
+  margin: 0 auto;
+}
+#page1>div>div>div {
+  margin: 0 auto;
+  width: 50%;
+  text-align: left;
+}
+#questions {
+  overflow-y: scroll;
+  width: 100%;
+  height: 70%;
+  text-align: center;
+  background-color: black;
+  position: relative;
+  font-size: 1.2rem;
+}
+#questions div {
+  margin: 15px 0;
+}
+#questions div div {
+  width: 80%;
+  padding: 5px 10px;
+  margin: 0 auto;
+  text-align: left;
+}
+#questions>div>div>p:first-child {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+#eback {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+}
+/* Styling range */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--theme-color4);
+  cursor: pointer;
+}
+/* Styling radio */
+input[type=radio] + label {
+  display: block;
+  cursor: pointer;
+  position: relative;
+top: -4.4px;
+}
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label:before {
+  content: " ";
+  border: 0.1rem solid #fff;
+  border-radius: 0.4rem;
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0.1rem 0.2rem 0.2rem 0.1rem;
+  margin-right: 1.1rem;
+  color: transparent;
+  transition: .2s;
+  position: relative;
+    bottom: -7px;
+}
+input[type=radio] + label:active:before {
+  transform: scale(0);
+}
+input[type=radio]:checked + label:before {
+  background-color: var(--theme-color4);
+  border-color: 0.1rem solid var(--theme-color1);
+  color: #fff;
+}
+#result {
+  width: 30%;
+  height: 10%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.contents #listWords {
+  overflow: scroll;
+  height: 100vh;
+}
+.contents #listWords div {
+  font-size: 1.6rem;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 30% 30% 40%;
+  justify-content: space-around;
+  margin: 3px 0;
+}
+.contents .cardsMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  padding: 5px;
+}
+.contents {
+  display: block;
+  animation: fadein 1s linear;
+}
+.divButtons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+a, button {
+  cursor: pointer;
+}
+i {
+  font-family: 'notoEmoji', Fallback, sans-serif;
+  font-style: normal;
+}
+#echange {
+  font-weight: bold;
+  margin: 1.4rem 0 2rem 0;
+}
+footer {
+  position: absolute;
+  display: flex;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  justify-content: space-between;
+  background-color: var(--theme-color1);
+  border-top: 10px solid var(--theme-color1);
+  width: 100%;
+}
+footer button {
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  background-color: var(--theme-color1);
+  border-radius: 0;
+  padding: 6px 0;
+  width: 100%;
+}
+footer .active {
+  transform: translate(0,-5px);
+}
+footer .active:after {
+  content: '__';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+button {
+  position: relative;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--theme-color1)
+}
+button.btn {
+  box-shadow: 0 7px rgba(255,220,220,0.9);
+}
+button.btn:active {
+  box-shadow: 0 5px rgba(255,220,220,0.9);
+  transform: translateY(3px);
+}
+.popup {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  transition: .2s;
+}
+@keyframes ripple {
+  0% { transform: scale(0, 0); opacity: 1; }
+  10% { transform: scale(10, 10); opacity: 1; }
+  100% { transform: scale(100, 100); opacity: 0; }
+}
+/* Styling Checkbox */
+input[type=checkbox] + label {
+  display: block;
+  cursor: pointer;
+}
+input[type=checkbox] {
+  display: none;
+}
+input[type=checkbox] + label:before {
+  content: " ";
+  border: 0.1rem solid #000;
+  border-radius: 0.4rem;
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0.1rem 0.2rem 0.2rem 0.1rem;
+  margin-right: 0.2rem;
+  color: transparent;
+  transition: .2s;
+}
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+input[type=checkbox]:checked + label:before {
+  background-color: rgba(0,0,0,0.7);
+  border-color: 0.1rem solid var(--theme-color1);
+  color: #fff;
+}
+@media only screen and (max-height: 680px) {
+  html { zoom: 0.85 }
+}
+@media only screen and (max-height: 630px) {
+  html { zoom: 0.8 }
+}
+@media only screen and (max-height: 580px) {
+  html { zoom: 0.75 }
+}
+@media only screen and (max-height: 510px) {
+  html { zoom: 0.65 }
+}
+@media only screen and (max-height: 460px) {
+  html { zoom: 0.55 }
+}
+@media only screen and (max-height: 380px) {
+  html { zoom: 0.45 }
+}
+@media only screen and (max-height: 320px) {
+  html { zoom: 0.4 }
+}
+@media only screen and (max-height: 300px) {
+  html { zoom: 0.3 }
+}
+.animate-1 {
+  animation: fadein 1s linear;
+}
+.animate-2 {
+  animation: fadeleft .7s linear;
+}
+.animate-3 {
+  animation: fade 1s linear;
+}
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadein {
+    from { transform: translate(0,20px); opacity: 0; }
+    to { transform: translate(0,0); opacity: 1; }
+}
+@keyframes fadeleft {
+    from { transform: translate(50px,0); opacity: 0; }
+    to { transform: translate(0,0); opacity: 1; }
+}
