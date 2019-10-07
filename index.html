@@ -8,6 +8,7 @@
 	<link href="css/preloader.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<script type='text/javascript' src='spoersmaal2.js'></script>
+	<script type='text/javascript' src='spoersmaal.js'></script>
 	<script type="text/javascript">
 	// https://emojipedia.org/symbols/
 		setTimeout(showPage, 14);
@@ -106,7 +107,7 @@
 				let html = `
 				<div>
 					<div>
-					<p>${question}</p>
+					<p>${i+1}. ${question}</p>
 				`;
 				for (let j = 0; j < choices.length; j++) {
 					html += `
