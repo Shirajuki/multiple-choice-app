@@ -11,35 +11,49 @@
 	<script type='text/javascript' src='spoersmaal.js'></script>
 	<script type="text/javascript">
 	// https://emojipedia.org/symbols/
-		setTimeout(showPage, 14);
+		setTimeout(showPage, 1400);
 	  function showPage() {
 			document.getElementById("loader").style.visibility = "hidden";
 			document.getElementById("loader").style.opacity = 0;
 	    setTimeout(() => {
+				// openClose(true,flipcard,3);
+				document.getElementById('estudy').click()
 	      document.getElementById("loader").style.display = "none";
 	    },500)
 	  }
 		let totalQuestions = 3;
+		let studyCardN = 0, correctStudy = 0;
+		let splittedQuestions = []
 		let data = tdt4109;
 		let allAnswers = [];
-		let contents, qna, result;
+		let contents, qna, flipcard, result, divAnswers, bigCard;
 		let sliderange, sliderangedsp;
-		let estudy, eback, questions, confirmAnswer;
+		let estudy, eback1, eback2, questions, confirmAnswer;
 		// Onload DOM and Event setups. Also calls some functions to initialize the app.
 		window.onload = () => {
 		// DOM - footer
 			contents = document.getElementsByClassName('contents');
 			qna = document.getElementById('qna');
+			flipcard = document.getElementById('flipcard');
 			result = document.getElementById('result');
-			eback = document.getElementById('eback');
-			eback.onclick = () => {
+			divAnswers = document.getElementById('divAnswers');
+			bigCard = document.getElementById('bigCard');
+			eback1 = document.getElementById('eback1');
+			eback2 = document.getElementById('eback2');
+			eback1.onclick = function() {
 				openClose(false,qna);
+				openClose(false,result);
+			}
+			eback2.onclick = function() {
+				openClose(false,flipcard);
 				openClose(false,result);
 			}
 			estudy = document.getElementById('estudy');
 			estudy.onclick = () => {
-				getDataQuestions();
-				openClose(true,qna);
+				let type = 1;
+				getDataQuestions(type);
+				// openClose(true,qna,3);
+				openClose(true,flipcard,3);
 			}
 			sliderange = document.getElementById('sliderange');
 			sliderangedsp = document.getElementById('sliderangedsp');
@@ -55,6 +69,10 @@
 			getDataQuestions();
 		}
 		function checkAnswers(input) {
+			questions.scrollTo({
+			  top: 0,
+			  behavior: 'smooth'
+			});
 			allInputs = document.getElementsByClassName('choices');
 			// console.log(allInputs);
 			let checked = [];
@@ -66,6 +84,9 @@
 			console.log(checked)
 			if (checked.length != totalQuestions) {
 				console.log("CHECK ALL QUESTIONS!")
+				result.firstElementChild.innerHTML = `Check all questions!`;
+				openClose(true,result);
+				setTimeout(_=>openClose(false,result),1500);
 			} else {
 				let totalCorrect = 0;
 				for (let input of allInputs) {
@@ -93,11 +114,18 @@
 				openClose(true,result);
 			}
 		}
-		function getDataQuestions() {
-			let splittedQuestions = getQuestions(totalQuestions,data);
+		function getDataQuestions(type=0) {
+			splittedQuestions = getQuestions(totalQuestions,data);
 			console.log(splittedQuestions);
-			displayQuestions(splittedQuestions,questions)
-			allAnswers = splittedQuestions.map(x => x.R);
+			if (type == 0) {
+				displayQuestions(splittedQuestions,questions)
+				allAnswers = splittedQuestions.map(x => x.R);
+			} else {
+				studyCardN = 0, correctStudy = 0;
+				progress.value = 0;
+				progress.max = splittedQuestions.length;
+				studyCard(splittedQuestions,bigCard.firstElementChild);
+			}
 		}
 		function displayQuestions(q,output) {
       output.innerHTML = "";
@@ -126,6 +154,7 @@
 
 		}
 		const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
+		const shuffle = array => array.sort(() => Math.random() - 0.5);
 		function getQuestions(quantity,input) {
 			const max = input.length;
 			newList = []
@@ -164,6 +193,69 @@
 		    dom.style.opacity = '0';
 		  }
 		}
+		// Function that operates the study section of the app,
+		// shows and setups other functions for the game to work.
+		function studyCard(q,front) {
+			if (studyCardN == q.length) {
+				studyCardN = 0;
+				progress.value = 0;
+				openClose(true,result);
+				result.firstElementChild.innerHTML = `${correctStudy} / ${sliderange.value} answered correctly!`;
+				setTimeout(() => {
+					openClose(false,result);
+					openClose(false,flipcard);
+					if (correctStudy !== q.length) {
+						estudy.click()
+					}
+				},4000)
+			} else {
+				// Displays the question
+				front.innerHTML = `
+				<p>${q[studyCardN].Q}</p>
+				`;
+				// get 4 button cards
+				let rndFour = shuffle(q[studyCardN].A);
+				console.log(`%c ${rndFour} ${studyCardN}`,'color:red');
+				toggleAnimate(bigCard,'animate-2');
+				toggleAnimate(divAnswers,'animate-3');
+				divAnswers.innerHTML = '';
+				for (let i = 0; i < rndFour.length; i++) {
+					let answerBtn = document.createElement('button');
+					answerBtn.innerHTML = `<span>${i+1}</span>${rndFour[i]}`;
+					answerBtn.onclick = function() {
+						answerBtn.classList.toggle('active');
+						// If not last question
+						if (studyCardN < q.length) {
+							this.disabled = true;
+							let text = this.innerHTML.slice(14,(this.innerHTML).length)
+							console.log(text,q[studyCardN].R)
+							// If correct
+							if (text == q[studyCardN].R) {
+								// Disables all, so no more clicks
+								for (dom of divAnswers.children) {
+									dom.disabled = true;
+								}
+								correctStudy++;
+								this.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
+								this.style.backgroundColor = 'white';
+								setTimeout(() => {
+									studies();
+									progress.value++;
+								},2000);
+							} else {
+								this.style.backgroundColor = 'rgba(0,0,0,0.7)';
+								correctStudy--;
+							}
+						}
+					}
+					divAnswers.appendChild(answerBtn);
+				}
+			}
+		}
+		function studies() {
+			studyCardN++;
+			studyCard(splittedQuestions,bigCard.firstElementChild);
+		}
 	</script>
 </head>
 <body>
@@ -173,8 +265,7 @@
 
 	<!-- Header -->
 	<header>
-		<h2>Multiple-choice-app - Shirajuki</h2>
-		<br><br>
+		<h2>Multiple-choice-app</h2>
 	</header>
 	<br>
 	<!-- Main -->
@@ -193,6 +284,30 @@
 							<input type="radio" name="data" id="data2">
 							<label for="data2">IT2508</label>
 						</p>
+						<p>
+							<input type="radio" name="data" id="data3" disabled>
+							<label for="data3">????</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data4" disabled>
+							<label for="data4">????</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data5" disabled>
+							<label for="data5">????</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data6" disabled>
+							<label for="data6">????</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data7" disabled>
+							<label for="data7">????</label>
+						</p>
+						<p>
+							<input type="radio" name="data" id="data8" disabled>
+							<label for="data8">????</label>
+						</p>
 					</div>
 					<input id="sliderange" type="range" name="" min="1" max="30" value="10"/>
 					<p id="sliderangedsp">69</p>
@@ -204,16 +319,44 @@
 			</div>
 		</div>
 	</main>
-	<!-- APP -->
+	<!-- Scroll Style -->
 	<div class="popup" id="qna">
+		<br>
 		<div id="questions">
 			<!-- add elements here -->
 		</div>
 		<br/>
 		<div>
-			<p><a id='eback'><i>⬅</i> RETURN</a></p>
+			<p><a class="eback" id='eback1'><i>⬅</i> RETURN</a></p>
 			<button id='confirmAnswer' class='btn'>confirmAnswer</button>
 		</div>
+	</div>
+	<!-- Flip Style -->
+	<div class="popup" id='flipcard'>
+		<header>
+			<div>
+				<p><a class="eback" id='eback2'><i>⬅</i> RETURN</a></p>
+			</div>
+		</header>
+		<div id="eflip">
+			<div id="bigCard">
+				<div id="front" class="front">
+					<!-- <p>Hva er Alan Turing kjent for?</p> -->
+					<p>Hva er Alan Turing kjent for?</p>
+				</div>
+			</div>
+		</div>
+		<br><br><br>
+		<div style='justify-content: center; display: flex; height:29%; width: 93%;'>
+			<div id="divAnswers" class="studyBtn">
+				<button><span>1.</span>Han utformet det matematiske grunnlaget for dagens datamaskiner.</button>
+				<button><span>2.</span>Han utformet det matematiske grunnlaget for dagens datamaskiner.</button>
+				<button><span>3.</span>Han utformet det matematiske grunnlaget for dagens datamaskiner.</button>
+				<button><span>4.</span>Han utformet det matematiske grunnlaget for dagens datamaskiner.</button>
+			</div>
+		</div>
+		<br><br>
+		<progress id='progress' value="0" max="9"></progress>
 	</div>
 	<!-- RESULTS -->
 	<div class="popup" id="result">
