@@ -156,6 +156,10 @@ input[type=radio] + label:before {
   position: relative;
   bottom: -7px;
 }
+input[type=radio]:disabled + label:before {
+  opacity: 0.5;
+  border: 0.15rem solid #efefef;
+}
 input[type=radio]:not(:disabled) + label:active:before {
   transform: scale(0);
 }
@@ -166,13 +170,41 @@ input[type=radio]:checked + label:before {
 }
 #result {
   border-radius: 10px;
-  background-color: var(--base-color1) !important;
+  background-color: var(--theme-color1) !important;
   width: 30%;
   height: auto;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  top: 0;
+  transition: .5s;
+}
+#result>p {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin: 10px 0;
+}
+#result div {
+  width: 90%;
+  height: 90%;
+  overflow-y: scroll;
+}
+#result ul {
+  list-style: none;
+  padding: 10px 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+#result ul:not(:last-child) {
+  margin: 0 0 15px 0;
+}
+#result ul:nth-child(odd) {
+  background-color: rgba(0,0,0,0.6);
+}
+#result ul li:first-child {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 1.2rem;
 }
 .contents #listWords {
   overflow: scroll;
@@ -310,6 +342,26 @@ button.btn:active {
 .animate-3 {
   animation: fade 1s linear;
 }
+.correct {
+  animation: correct .33s linear;
+  animation-fill-mode: forwards;
+}
+.wrong {
+  animation: wrong .5s linear;
+  animation-fill-mode: forwards;
+}
+@keyframes correct {
+  0% { transform: scale(1, 1); color: black;}
+  50% { transform: scale(1.05, 1.05); color: black;}
+  100% { transform: scale(1, 1); color: green;}
+}
+@keyframes wrong {
+  0% { transform: translateX(0); color: black;}
+  25% { transform: translateX(-10px); color: red;}
+  50% { transform: translateX(0); color: red;}
+  75% { transform: translateX(10px); color: red;}
+  100% { transform: translateX(0); color: red;}
+}
 @keyframes fade {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -377,11 +429,17 @@ progress[value]::-webkit-progress-value {
   font-weight: normal;
   font-size: 0.9rem;
   overflow: hidden;
-  transition: box-shadow .3s, border .3s;
+  transition: box-shadow .3s, border .3s, background .2s;
 
   text-align: left;
   padding-left: 65px;
   padding-right: 5px;
+}
+.studyBtn button.clickedBtn {
+  background: rgba(255,255,255,0.2);
+}
+.studyBtn button.clickedBtn span {
+  opacity: 0.5;
 }
 .studyBtn button span {
   background-color: var(--theme-color2);
@@ -455,6 +513,7 @@ progress[value]::-webkit-progress-value {
   border-radius: 10px;
   font-size: 1.1rem;
   padding: 0;
+  font-weight: bold;
   position: absolute;
   height: 100%;
   width: 100%;

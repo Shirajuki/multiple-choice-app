@@ -11,18 +11,19 @@
 	<script type='text/javascript' src='spoersmaal.js'></script>
 	<script type="text/javascript">
 	// https://emojipedia.org/symbols/
+	const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
+	const shuffle = array => array.sort(() => Math.random() - 0.5);
 		setTimeout(showPage, 1400);
 	  function showPage() {
 			document.getElementById("loader").style.visibility = "hidden";
 			document.getElementById("loader").style.opacity = 0;
 	    setTimeout(() => {
-				// openClose(true,flipcard,3);
-				document.getElementById('estudy').click()
+				// document.getElementById('estudy').click()
 	      document.getElementById("loader").style.display = "none";
 	    },500)
 	  }
 		let totalQuestions = 3;
-		let studyCardN = 0, correctStudy = 0;
+		let studyCardN = 0, correctStudy = [];
 		let splittedQuestions = []
 		let data = tdt4109;
 		let allAnswers = [];
@@ -63,16 +64,15 @@
 				sliderangedsp.innerText = sliderange.value;
 				totalQuestions = +sliderange.value;
 			}
+			sliderange.max = data.length;
 			questions = document.getElementById('questions');
 			confirmAnswer = document.getElementById('confirmAnswer');
 			confirmAnswer.onclick = () => checkAnswers(questions);
 			getDataQuestions();
 		}
+		//type scroll
 		function checkAnswers(input) {
-			questions.scrollTo({
-			  top: 0,
-			  behavior: 'smooth'
-			});
+			questions.scrollTo({top: 0,behavior: 'smooth'});
 			allInputs = document.getElementsByClassName('choices');
 			// console.log(allInputs);
 			let checked = [];
@@ -116,12 +116,13 @@
 		}
 		function getDataQuestions(type=0) {
 			splittedQuestions = getQuestions(totalQuestions,data);
+			correctStudy = [...Array(splittedQuestions.length).fill(0)];
 			console.log(splittedQuestions);
 			if (type == 0) {
 				displayQuestions(splittedQuestions,questions)
 				allAnswers = splittedQuestions.map(x => x.R);
 			} else {
-				studyCardN = 0, correctStudy = 0;
+				studyCardN = 0;
 				progress.value = 0;
 				progress.max = splittedQuestions.length;
 				studyCard(splittedQuestions,bigCard.firstElementChild);
@@ -130,7 +131,7 @@
 		function displayQuestions(q,output) {
       output.innerHTML = "";
 			for (let i = 0; i < q.length; i++) {
-				let choices = q[i].A;
+				let choices = shuffle(q[i].A);
 				let question = q[i].Q;
 				let html = `
 				<div>
@@ -153,8 +154,6 @@
 			}
 
 		}
-		const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
-		const shuffle = array => array.sort(() => Math.random() - 0.5);
 		function getQuestions(quantity,input) {
 			const max = input.length;
 			newList = []
@@ -199,15 +198,46 @@
 			if (studyCardN == q.length) {
 				studyCardN = 0;
 				progress.value = 0;
+				correctStudy = [...Array(splittedQuestions.length).fill(0)];
+				//
+				openClose(false,flipcard);
 				openClose(true,result);
-				result.firstElementChild.innerHTML = `${correctStudy} / ${sliderange.value} answered correctly!`;
-				setTimeout(() => {
+				result.style.width = "100%";
+				result.style.height = "100%";
+				console.log(correctStudy)
+				result.innerHTML = `<p>${correctStudy.reduce((a,x) => a+x)} / ${sliderange.value} answered correctly!</p> <div></div>`;
+				for (let i = 0; i < q.length; i++) {
+					result.lastElementChild.innerHTML += `
+					<ul>
+						<li ${(correctStudy[i] == 0) ? ('style="color: #ff3b3b;"') : ('style="color: #43ff43;"')}>${q[i].Q}</li>
+						<li>${q[i].R}</li>
+					</ul>
+					`;
+				}
+				// closebutton
+				let closeBtn = document.createElement('button');
+				closeBtn.className = "btn"
+				closeBtn.onclick = () => {
+					openClose(false,result);
+				}
+				closeBtn.innerText = "close";
+				result.lastElementChild.appendChild(document.createElement('br'));
+				result.lastElementChild.appendChild(closeBtn);
+				result.lastElementChild.appendChild(document.createElement('br'));
+				result.lastElementChild.appendChild(document.createElement('br'));
+				//
+				// closebutton
+				let retryBtn = document.createElement('button');
+				retryBtn.className = "btn"
+				retryBtn.onclick = () => {
 					openClose(false,result);
 					openClose(false,flipcard);
-					if (correctStudy !== q.length) {
-						estudy.click()
-					}
-				},4000)
+					studyCard(splittedQuestions,bigCard.firstElementChild);
+					openClose(true,flipcard,3);
+				}
+				retryBtn.innerText = "retry";
+				result.lastElementChild.appendChild(retryBtn);
+				// result.lastElementChild.appendChild(document.createElement('br'));
 			} else {
 				// Displays the question
 				front.innerHTML = `
@@ -223,29 +253,39 @@
 					let answerBtn = document.createElement('button');
 					answerBtn.innerHTML = `<span>${i+1}</span>${rndFour[i]}`;
 					answerBtn.onclick = function() {
-						answerBtn.classList.toggle('active');
+						// answerBtn.classList.toggle('active');
 						// If not last question
 						if (studyCardN < q.length) {
-							this.disabled = true;
+							answerBtn.classList.toggle('clickedBtn');
 							let text = this.innerHTML.slice(14,(this.innerHTML).length)
 							console.log(text,q[studyCardN].R)
 							// If correct
 							if (text == q[studyCardN].R) {
 								// Disables all, so no more clicks
-								for (dom of divAnswers.children) {
-									dom.disabled = true;
-								}
-								correctStudy++;
+								correctStudy[studyCardN] = 1;
+								// animation correct
+								front.children[0].classList.toggle('correct');
 								this.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
 								this.style.backgroundColor = 'white';
-								setTimeout(() => {
-									studies();
-									progress.value++;
-								},2000);
 							} else {
-								this.style.backgroundColor = 'rgba(0,0,0,0.7)';
-								correctStudy--;
+								front.children[0].classList.toggle('wrong');
+								correctStudy[studyCardN] = 0;
 							}
+							// always
+							for (const dom of divAnswers.children) {
+								dom.disabled = true;
+								if (dom.innerHTML.slice(14,(dom.innerHTML.length)) !== q[studyCardN].R) {
+									dom.classList.add('clickedBtn');
+								} else {
+									dom.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
+									dom.style.backgroundColor = 'white';
+								}
+							}
+							this.classList.toggle('clickedBtn');
+							setTimeout(() => {
+								studies();
+								progress.value++;
+							},2000);
 						}
 					}
 					divAnswers.appendChild(answerBtn);
@@ -281,7 +321,7 @@
 							<label for="data1">TDT4109</label>
 						</p>
 						<p>
-							<input type="radio" name="data" id="data2">
+							<input type="radio" name="data" id="data2" disabled>
 							<label for="data2">IT2508</label>
 						</p>
 						<p>
@@ -309,7 +349,7 @@
 							<label for="data8">????</label>
 						</p>
 					</div>
-					<input id="sliderange" type="range" name="" min="1" max="30" value="10"/>
+					<input id="sliderange" type="range" name="" min="1" max="30" value="2"/>
 					<p id="sliderangedsp">69</p>
 				</div>
 			</div>

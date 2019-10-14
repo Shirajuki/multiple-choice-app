@@ -61,8 +61,8 @@ var tdt4109 = [
 },
 {
   "Q": "K bits in a sequence yield how many symbols?",
-  "A": ["K**2","2**K","K","2"],
-  "R": "2**K"
+  "A": ["K^2","2^K","K","2"],
+  "R": "2^K"
 },
 {
   "Q": "A machine instructions uses how many bytes of memory?",
