@@ -70,6 +70,49 @@
 			confirmAnswer.onclick = () => checkAnswers(questions);
 			getDataQuestions();
 		}
+		//// EVENT
+		let pressed = false;
+		let game = true;
+		document.addEventListener("keydown", keyDownHandler, false);
+		function keyDownHandler(e) {
+			if (!pressed && game) {
+				if (e.keyCode == 49) {
+					pressed = true;
+					divAnswers.children[0].click();
+				} else if (e.keyCode == 50) {
+					pressed = true;
+					divAnswers.children[1].click();
+				} else if (e.keyCode == 51) {
+					pressed = true;
+					divAnswers.children[2].click();
+				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+					pressed = true;
+					divAnswers.children[3].click();
+				}
+			}
+			// else if (e.keyCode == 32 || e.keyCode == 13) {
+			// 	if (gameover.style.visiblity !== "hidden") {
+			// 		openClose(false,result);
+			// 		openClose(false,flipcard);
+			// 		studyCard(shuffle(fetchedCharacters),bigCard.firstElementChild);
+			// 		openClose(true,study,3);
+			// 	}
+			// }
+		}
+		document.addEventListener("keyup", keyUpHandler, false);
+		function keyUpHandler(e) {
+			if (pressed) {
+				if (e.keyCode == 49) {
+					pressed = false;
+				} else if (e.keyCode == 50) {
+					pressed = false;
+				} else if (e.keyCode == 51) {
+					pressed = false;
+				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+					pressed = false;
+				}
+			}
+		}
 		//type scroll
 		function checkAnswers(input) {
 			questions.scrollTo({top: 0,behavior: 'smooth'});
@@ -195,10 +238,11 @@
 		// Function that operates the study section of the app,
 		// shows and setups other functions for the game to work.
 		function studyCard(q,front) {
+			game = true;
 			if (studyCardN == q.length) {
+				game = false;
 				studyCardN = 0;
 				progress.value = 0;
-				correctStudy = [...Array(splittedQuestions.length).fill(0)];
 				//
 				openClose(false,flipcard);
 				openClose(true,result);
@@ -237,7 +281,8 @@
 				}
 				retryBtn.innerText = "retry";
 				result.lastElementChild.appendChild(retryBtn);
-				// result.lastElementChild.appendChild(document.createElement('br'));
+				//
+				correctStudy = [...Array(splittedQuestions.length).fill(0)];
 			} else {
 				// Displays the question
 				front.innerHTML = `
