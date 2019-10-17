@@ -102,7 +102,7 @@ body {
 .eback {
   position: absolute;
   left: 20px;
-  top: 10px;
+  top: 20px;
 }
 /* Styling range */
 input[type="range"] {
