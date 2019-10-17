@@ -173,6 +173,7 @@
 		}
 		function displayQuestions(q,output) {
       output.innerHTML = "";
+			return
 			for (let i = 0; i < q.length; i++) {
 				let choices = shuffle(q[i].A);
 				let question = q[i].Q;

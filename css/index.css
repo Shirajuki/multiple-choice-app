@@ -398,7 +398,7 @@ button.btn:active {
 progress[value] {
   -webkit-appearance: none;
   appearance: none;
-  display: none;
+
   width: 80%;
   height: 5px;
   position: absolute;
