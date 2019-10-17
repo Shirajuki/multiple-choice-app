@@ -70,93 +70,93 @@
 			confirmAnswer.onclick = () => checkAnswers(questions);
 			getDataQuestions();
 		}
-	// 	//// EVENT
-	// 	let pressed = false;
-	// 	let game = true;
-	// 	document.addEventListener("keydown", keyDownHandler, false);
-	// 	function keyDownHandler(e) {
-	// 		if (!pressed && game) {
-	// 			if (e.keyCode == 49) {
-	// 				pressed = true;
-	// 				divAnswers.children[0].click();
-	// 			} else if (e.keyCode == 50) {
-	// 				pressed = true;
-	// 				divAnswers.children[1].click();
-	// 			} else if (e.keyCode == 51) {
-	// 				pressed = true;
-	// 				divAnswers.children[2].click();
-	// 			} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
-	// 				pressed = true;
-	// 				divAnswers.children[3].click();
-	// 			}
-	// 		}
-	// 		// else if (e.keyCode == 32 || e.keyCode == 13) {
-	// 		// 	if (gameover.style.visiblity !== "hidden") {
-	// 		// 		openClose(false,result);
-	// 		// 		openClose(false,flipcard);
-	// 		// 		studyCard(shuffle(fetchedCharacters),bigCard.firstElementChild);
-	// 		// 		openClose(true,study,3);
-	// 		// 	}
-	// 		// }
-	// 	}
-	// 	document.addEventListener("keyup", keyUpHandler, false);
-	// 	function keyUpHandler(e) {
-	// 		if (pressed) {
-	// 			if (e.keyCode == 49) {
-	// 				pressed = false;
-	// 			} else if (e.keyCode == 50) {
-	// 				pressed = false;
-	// 			} else if (e.keyCode == 51) {
-	// 				pressed = false;
-	// 			} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
-	// 				pressed = false;
-	// 			}
-	// 		}
-	// 	}
-	// 	//type scroll
-	// 	function checkAnswers(input) {
-	// 		questions.scrollTo({top: 0,behavior: 'smooth'});
-	// 		allInputs = document.getElementsByClassName('choices');
-	// 		// console.log(allInputs);
-	// 		let checked = [];
-	// 		for (let input of allInputs) {
-	// 			if (input.checked) {
-	// 				checked.push({name: input, id: input.id});
-	// 			}
-	// 		}
-	// 		console.log(checked)
-	// 		if (checked.length != totalQuestions) {
-	// 			console.log("CHECK ALL QUESTIONS!")
-	// 			result.firstElementChild.innerHTML = `Check all questions!`;
-	// 			openClose(true,result);
-	// 			setTimeout(_=>openClose(false,result),1500);
-	// 		} else {
-	// 			let totalCorrect = 0;
-	// 			for (let input of allInputs) {
-	// 				input.disabled = true;
-	// 			}
-	// 			for (let i = 0; i < checked.length; i++) {
-	// 				let text = checked[i]["name"].parentNode.lastElementChild.innerText;
-	// 				if (text == allAnswers[i]) {
-	// 					checked[i]["name"].parentNode.style.backgroundColor = 'lime';
-	// 					checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#52e45285';
-	// 					totalCorrect++;
-	// 				} else {
-	// 					checked[i]["name"].parentNode.style.backgroundColor = 'red';
-	// 					checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#f36e6e85';
-	// 					let checkForCorrect = document.getElementsByName(i);
-	// 					for (let c of checkForCorrect) {
-	// 						let text = c.parentNode.lastElementChild.innerText;
-	// 						if (text == allAnswers[i]) {
-	// 							c.parentNode.style.color = 'lime';
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 			result.firstElementChild.innerHTML = `${totalCorrect} / ${sliderange.value} answered correctly!`;
-	// 			openClose(true,result);
-	// 		}
-	// 	}
+		//// EVENT
+		let pressed = false;
+		let game = true;
+		document.addEventListener("keydown", keyDownHandler, false);
+		function keyDownHandler(e) {
+			if (!pressed && game) {
+				if (e.keyCode == 49) {
+					pressed = true;
+					divAnswers.children[0].click();
+				} else if (e.keyCode == 50) {
+					pressed = true;
+					divAnswers.children[1].click();
+				} else if (e.keyCode == 51) {
+					pressed = true;
+					divAnswers.children[2].click();
+				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+					pressed = true;
+					divAnswers.children[3].click();
+				}
+			}
+			else if (e.keyCode == 32 || e.keyCode == 13) {
+				if (gameover.style.visiblity !== "hidden") {
+					openClose(false,result);
+					openClose(false,flipcard);
+					studyCard(shuffle(fetchedCharacters),bigCard.firstElementChild);
+					openClose(true,study,3);
+				}
+			}
+		}
+		document.addEventListener("keyup", keyUpHandler, false);
+		function keyUpHandler(e) {
+			if (pressed) {
+				if (e.keyCode == 49) {
+					pressed = false;
+				} else if (e.keyCode == 50) {
+					pressed = false;
+				} else if (e.keyCode == 51) {
+					pressed = false;
+				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+					pressed = false;
+				}
+			}
+		}
+		//type scroll
+		function checkAnswers(input) {
+			questions.scrollTo({top: 0,behavior: 'smooth'});
+			allInputs = document.getElementsByClassName('choices');
+			// console.log(allInputs);
+			let checked = [];
+			for (let input of allInputs) {
+				if (input.checked) {
+					checked.push({name: input, id: input.id});
+				}
+			}
+			console.log(checked)
+			if (checked.length != totalQuestions) {
+				console.log("CHECK ALL QUESTIONS!")
+				result.firstElementChild.innerHTML = `Check all questions!`;
+				openClose(true,result);
+				setTimeout(_=>openClose(false,result),1500);
+			} else {
+				let totalCorrect = 0;
+				for (let input of allInputs) {
+					input.disabled = true;
+				}
+				for (let i = 0; i < checked.length; i++) {
+					let text = checked[i]["name"].parentNode.lastElementChild.innerText;
+					if (text == allAnswers[i]) {
+						checked[i]["name"].parentNode.style.backgroundColor = 'lime';
+						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#52e45285';
+						totalCorrect++;
+					} else {
+						checked[i]["name"].parentNode.style.backgroundColor = 'red';
+						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#f36e6e85';
+						let checkForCorrect = document.getElementsByName(i);
+						for (let c of checkForCorrect) {
+							let text = c.parentNode.lastElementChild.innerText;
+							if (text == allAnswers[i]) {
+								c.parentNode.style.color = 'lime';
+							}
+						}
+					}
+				}
+				result.firstElementChild.innerHTML = `${totalCorrect} / ${sliderange.value} answered correctly!`;
+				openClose(true,result);
+			}
+		}
 		function getDataQuestions(type=0) {
 			splittedQuestions = getQuestions(totalQuestions,data);
 			correctStudy = [...Array(splittedQuestions.length).fill(0)];

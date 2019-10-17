@@ -59,12 +59,6 @@ body {
   overflow: hidden;
   font-family: Tahoma, Geneva, sans-serif;
 }
-html, body {
-  overflow-x: hidden;
-}
-body {
-  position: relative;
-}
 main {
   overflow: hidden;
 }
@@ -391,7 +385,7 @@ button.btn:active {
   display: flex;
   justify-content: center;
   margin: 10px 0 30px 0;
-  /* width: 100%; */
+  width: 60%;
 }
 .typeSrs button {
   padding: 5px 10px;
