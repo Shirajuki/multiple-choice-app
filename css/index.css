@@ -59,6 +59,10 @@ body {
   overflow: hidden;
   font-family: Tahoma, Geneva, sans-serif;
 }
+main {
+  overflow: hidden;
+}
+
 #page1>div>div:first-child {
   background-color: var(--base-color1);
   border-radius: 10px;
@@ -217,6 +221,7 @@ input[type=radio]:checked + label:before {
 .contents {
   display: block;
   animation: fadein 1s linear;
+  overflow: hidden;
 }
 .divButtons {
   display: flex;
