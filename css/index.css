@@ -223,7 +223,7 @@ input[type=radio]:checked + label:before {
 .contents {
   display: block;
   animation: fadein 1s linear;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 .divButtons {
   display: flex;
@@ -389,6 +389,7 @@ button.btn:active {
   justify-content: center;
   margin: 10px 0 30px 0;
   width: 100%;
+  overflow-y: hidden;
 }
 .typeSrs button {
   padding: 5px 10px;
