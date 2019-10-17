@@ -401,6 +401,8 @@ progress[value] {
   width: 80%;
   height: 5px;
   position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
   bottom: 50px;
 }
 progress[value]::-webkit-progress-bar {
