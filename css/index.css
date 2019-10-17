@@ -59,6 +59,12 @@ body {
   overflow: hidden;
   font-family: Tahoma, Geneva, sans-serif;
 }
+html, body {
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+}
 main {
   overflow: hidden;
 }
