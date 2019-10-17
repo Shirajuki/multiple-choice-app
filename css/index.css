@@ -61,7 +61,9 @@ body {
 }
 main {
   overflow: hidden;
+  position: relative;
 }
+
 
 #page1>div>div:first-child {
   background-color: var(--base-color1);
@@ -382,10 +384,11 @@ button.btn:active {
 } */
 #flipcard {
   background-color: var(--theme-color1);
+  position: absolute;
   display: flex;
   justify-content: center;
   margin: 10px 0 30px 0;
-  width: 60%;
+  width: 100%;
 }
 .typeSrs button {
   padding: 5px 10px;
