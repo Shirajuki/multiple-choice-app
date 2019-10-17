@@ -10,337 +10,337 @@
 	<script type='text/javascript' src='spoersmaal2.js'></script>
 	<script type='text/javascript' src='spoersmaal.js'></script>
 	<script type="text/javascript">
-	// https://emojipedia.org/symbols/
-	const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
-	const shuffle = array => array.sort(() => Math.random() - 0.5);
-		setTimeout(showPage, 1400);
-	  function showPage() {
-			document.getElementById("loader").style.visibility = "hidden";
-			document.getElementById("loader").style.opacity = 0;
-	    setTimeout(() => {
-				// document.getElementById('estudy').click()
-	      document.getElementById("loader").style.display = "none";
-	    },500)
-	  }
-		let totalQuestions = 3;
-		let studyCardN = 0, correctStudy = [];
-		let splittedQuestions = []
-		let data = tdt4109;
-		let allAnswers = [];
-		let contents, qna, flipcard, result, divAnswers, bigCard;
-		let sliderange, sliderangedsp;
-		let estudy, eback1, eback2, questions, confirmAnswer;
-		// Onload DOM and Event setups. Also calls some functions to initialize the app.
-		window.onload = () => {
-		// DOM - footer
-			contents = document.getElementsByClassName('contents');
-			qna = document.getElementById('qna');
-			flipcard = document.getElementById('flipcard');
-			result = document.getElementById('result');
-			divAnswers = document.getElementById('divAnswers');
-			bigCard = document.getElementById('bigCard');
-			eback1 = document.getElementById('eback1');
-			eback2 = document.getElementById('eback2');
-			eback1.onclick = function() {
-				openClose(false,qna);
-				openClose(false,result);
-			}
-			eback2.onclick = function() {
-				openClose(false,flipcard);
-				openClose(false,result);
-			}
-			estudy = document.getElementById('estudy');
-			estudy.onclick = () => {
-				let type = 1;
-				getDataQuestions(type);
-				// openClose(true,qna,3);
-				openClose(true,flipcard,3);
-			}
-			sliderange = document.getElementById('sliderange');
-			sliderangedsp = document.getElementById('sliderangedsp');
-			sliderangedsp.innerText = sliderange.value;
-			totalQuestions = +sliderange.value;
-			sliderange.oninput = () => {
-				sliderangedsp.innerText = sliderange.value;
-				totalQuestions = +sliderange.value;
-			}
-			sliderange.max = data.length;
-			questions = document.getElementById('questions');
-			confirmAnswer = document.getElementById('confirmAnswer');
-			confirmAnswer.onclick = () => checkAnswers(questions);
-			getDataQuestions();
-		}
-		//// EVENT
-		let pressed = false;
-		let game = true;
-		document.addEventListener("keydown", keyDownHandler, false);
-		function keyDownHandler(e) {
-			if (!pressed && game) {
-				if (e.keyCode == 49) {
-					pressed = true;
-					divAnswers.children[0].click();
-				} else if (e.keyCode == 50) {
-					pressed = true;
-					divAnswers.children[1].click();
-				} else if (e.keyCode == 51) {
-					pressed = true;
-					divAnswers.children[2].click();
-				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
-					pressed = true;
-					divAnswers.children[3].click();
-				}
-			}
-			// else if (e.keyCode == 32 || e.keyCode == 13) {
-			// 	if (gameover.style.visiblity !== "hidden") {
-			// 		openClose(false,result);
-			// 		openClose(false,flipcard);
-			// 		studyCard(shuffle(fetchedCharacters),bigCard.firstElementChild);
-			// 		openClose(true,study,3);
-			// 	}
-			// }
-		}
-		document.addEventListener("keyup", keyUpHandler, false);
-		function keyUpHandler(e) {
-			if (pressed) {
-				if (e.keyCode == 49) {
-					pressed = false;
-				} else if (e.keyCode == 50) {
-					pressed = false;
-				} else if (e.keyCode == 51) {
-					pressed = false;
-				} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
-					pressed = false;
-				}
-			}
-		}
-		//type scroll
-		function checkAnswers(input) {
-			questions.scrollTo({top: 0,behavior: 'smooth'});
-			allInputs = document.getElementsByClassName('choices');
-			// console.log(allInputs);
-			let checked = [];
-			for (let input of allInputs) {
-				if (input.checked) {
-					checked.push({name: input, id: input.id});
-				}
-			}
-			console.log(checked)
-			if (checked.length != totalQuestions) {
-				console.log("CHECK ALL QUESTIONS!")
-				result.firstElementChild.innerHTML = `Check all questions!`;
-				openClose(true,result);
-				setTimeout(_=>openClose(false,result),1500);
-			} else {
-				let totalCorrect = 0;
-				for (let input of allInputs) {
-					input.disabled = true;
-				}
-				for (let i = 0; i < checked.length; i++) {
-					let text = checked[i]["name"].parentNode.lastElementChild.innerText;
-					if (text == allAnswers[i]) {
-						checked[i]["name"].parentNode.style.backgroundColor = 'lime';
-						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#52e45285';
-						totalCorrect++;
-					} else {
-						checked[i]["name"].parentNode.style.backgroundColor = 'red';
-						checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#f36e6e85';
-						let checkForCorrect = document.getElementsByName(i);
-						for (let c of checkForCorrect) {
-							let text = c.parentNode.lastElementChild.innerText;
-							if (text == allAnswers[i]) {
-								c.parentNode.style.color = 'lime';
-							}
-						}
-					}
-				}
-				result.firstElementChild.innerHTML = `${totalCorrect} / ${sliderange.value} answered correctly!`;
-				openClose(true,result);
-			}
-		}
-		function getDataQuestions(type=0) {
-			splittedQuestions = getQuestions(totalQuestions,data);
-			correctStudy = [...Array(splittedQuestions.length).fill(0)];
-			console.log(splittedQuestions);
-			if (type == 0) {
-				displayQuestions(splittedQuestions,questions)
-				allAnswers = splittedQuestions.map(x => x.R);
-			} else {
-				studyCardN = 0;
-				progress.value = 0;
-				progress.max = splittedQuestions.length;
-				studyCard(splittedQuestions,bigCard.firstElementChild);
-			}
-		}
-		function displayQuestions(q,output) {
-      output.innerHTML = "";
-			for (let i = 0; i < q.length; i++) {
-				let choices = shuffle(q[i].A);
-				let question = q[i].Q;
-				let html = `
-				<div>
-					<div>
-					<p>${i+1}. ${question}</p>
-				`;
-				for (let j = 0; j < choices.length; j++) {
-					html += `
-						<p>
-							<input type="radio" class="choices" name="${i}" id="${i}${j}">
-							<label for="${i}${j}">${choices[j]}</label>
-						</p>
-					`;
-				};
-				html += `
-					</div>
-				</div>
-				`;
-				output.innerHTML += html;
-			}
-
-		}
-		function getQuestions(quantity,input) {
-			const max = input.length;
-			newList = []
-			while (newList.length !== quantity) {
-				let rnd = getRndInteger(0,max);
-				if (newList.indexOf(rnd) == -1) {
-					newList.push(rnd);
-				}
-			}
-			newnewList = []
-			for (let i of newList) {
-				newnewList.push(input[i]);
-			}
-			return newnewList
-		}
-		// Custom function for toggling CSS animations after a given time.
-		function toggleAnimate(dom,animateName,time=1400) {
-			dom.classList.toggle(animateName);
-			setTimeout(() =>{
-				dom.classList.toggle(animateName);
-			},time);
-		}
-		// Custom function to open/close popups.
-		function openClose(bool,dom,animateType=1) {
-		  if (bool) {
-		    dom.style.visibility = 'visible';
-		    dom.style.opacity = '1';
-
-				if (animateType !== 0) {
-					for (let i = 0; i < dom.childElementCount; i++) {
-						toggleAnimate(dom.children[i],`animate-${animateType}`);
-					}
-				}
-		  } else {
-		    dom.style.visibility = 'hidden';
-		    dom.style.opacity = '0';
-		  }
-		}
-		// Function that operates the study section of the app,
-		// shows and setups other functions for the game to work.
-		function studyCard(q,front) {
-			game = true;
-			if (studyCardN == q.length) {
-				game = false;
-				studyCardN = 0;
-				progress.value = 0;
-				//
-				openClose(false,flipcard);
-				openClose(true,result);
-				result.style.width = "100%";
-				result.style.height = "100%";
-				console.log(correctStudy)
-				result.innerHTML = `<p>${correctStudy.reduce((a,x) => a+x)} / ${sliderange.value} answered correctly!</p> <div></div>`;
-				for (let i = 0; i < q.length; i++) {
-					result.lastElementChild.innerHTML += `
-					<ul>
-						<li ${(correctStudy[i] == 0) ? ('style="color: #ff3b3b;"') : ('style="color: #43ff43;"')}>${q[i].Q}</li>
-						<li>${q[i].R}</li>
-					</ul>
-					`;
-				}
-				// closebutton
-				let closeBtn = document.createElement('button');
-				closeBtn.className = "btn"
-				closeBtn.onclick = () => {
-					openClose(false,result);
-				}
-				closeBtn.innerText = "close";
-				result.lastElementChild.appendChild(document.createElement('br'));
-				result.lastElementChild.appendChild(closeBtn);
-				result.lastElementChild.appendChild(document.createElement('br'));
-				result.lastElementChild.appendChild(document.createElement('br'));
-				//
-				// closebutton
-				let retryBtn = document.createElement('button');
-				retryBtn.className = "btn";
-				retryBtn.onclick = () => {
-					openClose(false,result);
-					openClose(false,flipcard);
-					studyCard(splittedQuestions,bigCard.firstElementChild);
-					openClose(true,flipcard,3);
-				}
-				retryBtn.innerText = "retry";
-				result.lastElementChild.appendChild(retryBtn);
-				//
-				correctStudy = [...Array(splittedQuestions.length).fill(0)];
-			} else {
-				// Displays the question
-				front.innerHTML = `
-				<p>${q[studyCardN].Q}</p>
-				`;
-				// get 4 button cards
-				let rndFour = shuffle(q[studyCardN].A);
-				console.log(`%c ${rndFour} ${studyCardN}`,'color:red');
-				toggleAnimate(bigCard,'animate-2');
-				toggleAnimate(divAnswers,'animate-3');
-				divAnswers.innerHTML = '';
-				for (let i = 0; i < rndFour.length; i++) {
-					let answerBtn = document.createElement('button');
-					answerBtn.innerHTML = `<span>${i+1}</span>${rndFour[i]}`;
-					answerBtn.onclick = function() {
-						// answerBtn.classList.toggle('active');
-						// If not last question
-						if (studyCardN < q.length) {
-							answerBtn.classList.toggle('clickedBtn');
-							let text = this.innerHTML.slice(14,(this.innerHTML).length)
-							console.log(text,q[studyCardN].R)
-							// If correct
-							if (text == q[studyCardN].R) {
-								// Disables all, so no more clicks
-								correctStudy[studyCardN] = 1;
-								// animation correct
-								front.children[0].classList.toggle('correct');
-								this.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
-								this.style.backgroundColor = 'white';
-							} else {
-								front.children[0].classList.toggle('wrong');
-								correctStudy[studyCardN] = 0;
-							}
-							// always
-							for (const dom of divAnswers.children) {
-								dom.disabled = true;
-								if (dom.innerHTML.slice(14,(dom.innerHTML.length)) !== q[studyCardN].R) {
-									dom.classList.add('clickedBtn');
-								} else {
-									dom.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
-									dom.style.backgroundColor = 'white';
-								}
-							}
-							this.classList.toggle('clickedBtn');
-							setTimeout(() => {
-								studies();
-								progress.value++;
-							},2000);
-						}
-					}
-					divAnswers.appendChild(answerBtn);
-				}
-			}
-		}
-		function studies() {
-			studyCardN++;
-			studyCard(splittedQuestions,bigCard.firstElementChild);
-		}
+	// // https://emojipedia.org/symbols/
+	// const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
+	// const shuffle = array => array.sort(() => Math.random() - 0.5);
+	// 	setTimeout(showPage, 1400);
+	//   function showPage() {
+	// 		document.getElementById("loader").style.visibility = "hidden";
+	// 		document.getElementById("loader").style.opacity = 0;
+	//     setTimeout(() => {
+	// 			// document.getElementById('estudy').click()
+	//       document.getElementById("loader").style.display = "none";
+	//     },500)
+	//   }
+	// 	let totalQuestions = 3;
+	// 	let studyCardN = 0, correctStudy = [];
+	// 	let splittedQuestions = []
+	// 	let data = tdt4109;
+	// 	let allAnswers = [];
+	// 	let contents, qna, flipcard, result, divAnswers, bigCard;
+	// 	let sliderange, sliderangedsp;
+	// 	let estudy, eback1, eback2, questions, confirmAnswer;
+	// 	// Onload DOM and Event setups. Also calls some functions to initialize the app.
+	// 	window.onload = () => {
+	// 	// DOM - footer
+	// 		contents = document.getElementsByClassName('contents');
+	// 		qna = document.getElementById('qna');
+	// 		flipcard = document.getElementById('flipcard');
+	// 		result = document.getElementById('result');
+	// 		divAnswers = document.getElementById('divAnswers');
+	// 		bigCard = document.getElementById('bigCard');
+	// 		eback1 = document.getElementById('eback1');
+	// 		eback2 = document.getElementById('eback2');
+	// 		eback1.onclick = function() {
+	// 			openClose(false,qna);
+	// 			openClose(false,result);
+	// 		}
+	// 		eback2.onclick = function() {
+	// 			openClose(false,flipcard);
+	// 			openClose(false,result);
+	// 		}
+	// 		estudy = document.getElementById('estudy');
+	// 		estudy.onclick = () => {
+	// 			let type = 1;
+	// 			getDataQuestions(type);
+	// 			// openClose(true,qna,3);
+	// 			openClose(true,flipcard,3);
+	// 		}
+	// 		sliderange = document.getElementById('sliderange');
+	// 		sliderangedsp = document.getElementById('sliderangedsp');
+	// 		sliderangedsp.innerText = sliderange.value;
+	// 		totalQuestions = +sliderange.value;
+	// 		sliderange.oninput = () => {
+	// 			sliderangedsp.innerText = sliderange.value;
+	// 			totalQuestions = +sliderange.value;
+	// 		}
+	// 		sliderange.max = data.length;
+	// 		questions = document.getElementById('questions');
+	// 		confirmAnswer = document.getElementById('confirmAnswer');
+	// 		confirmAnswer.onclick = () => checkAnswers(questions);
+	// 		getDataQuestions();
+	// 	}
+	// 	//// EVENT
+	// 	let pressed = false;
+	// 	let game = true;
+	// 	document.addEventListener("keydown", keyDownHandler, false);
+	// 	function keyDownHandler(e) {
+	// 		if (!pressed && game) {
+	// 			if (e.keyCode == 49) {
+	// 				pressed = true;
+	// 				divAnswers.children[0].click();
+	// 			} else if (e.keyCode == 50) {
+	// 				pressed = true;
+	// 				divAnswers.children[1].click();
+	// 			} else if (e.keyCode == 51) {
+	// 				pressed = true;
+	// 				divAnswers.children[2].click();
+	// 			} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+	// 				pressed = true;
+	// 				divAnswers.children[3].click();
+	// 			}
+	// 		}
+	// 		// else if (e.keyCode == 32 || e.keyCode == 13) {
+	// 		// 	if (gameover.style.visiblity !== "hidden") {
+	// 		// 		openClose(false,result);
+	// 		// 		openClose(false,flipcard);
+	// 		// 		studyCard(shuffle(fetchedCharacters),bigCard.firstElementChild);
+	// 		// 		openClose(true,study,3);
+	// 		// 	}
+	// 		// }
+	// 	}
+	// 	document.addEventListener("keyup", keyUpHandler, false);
+	// 	function keyUpHandler(e) {
+	// 		if (pressed) {
+	// 			if (e.keyCode == 49) {
+	// 				pressed = false;
+	// 			} else if (e.keyCode == 50) {
+	// 				pressed = false;
+	// 			} else if (e.keyCode == 51) {
+	// 				pressed = false;
+	// 			} else if (divAnswers.children[3] !== "undefined" && e.keyCode == 52) {
+	// 				pressed = false;
+	// 			}
+	// 		}
+	// 	}
+	// 	//type scroll
+	// 	function checkAnswers(input) {
+	// 		questions.scrollTo({top: 0,behavior: 'smooth'});
+	// 		allInputs = document.getElementsByClassName('choices');
+	// 		// console.log(allInputs);
+	// 		let checked = [];
+	// 		for (let input of allInputs) {
+	// 			if (input.checked) {
+	// 				checked.push({name: input, id: input.id});
+	// 			}
+	// 		}
+	// 		console.log(checked)
+	// 		if (checked.length != totalQuestions) {
+	// 			console.log("CHECK ALL QUESTIONS!")
+	// 			result.firstElementChild.innerHTML = `Check all questions!`;
+	// 			openClose(true,result);
+	// 			setTimeout(_=>openClose(false,result),1500);
+	// 		} else {
+	// 			let totalCorrect = 0;
+	// 			for (let input of allInputs) {
+	// 				input.disabled = true;
+	// 			}
+	// 			for (let i = 0; i < checked.length; i++) {
+	// 				let text = checked[i]["name"].parentNode.lastElementChild.innerText;
+	// 				if (text == allAnswers[i]) {
+	// 					checked[i]["name"].parentNode.style.backgroundColor = 'lime';
+	// 					checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#52e45285';
+	// 					totalCorrect++;
+	// 				} else {
+	// 					checked[i]["name"].parentNode.style.backgroundColor = 'red';
+	// 					checked[i]["name"].parentNode.parentNode.style.backgroundColor = '#f36e6e85';
+	// 					let checkForCorrect = document.getElementsByName(i);
+	// 					for (let c of checkForCorrect) {
+	// 						let text = c.parentNode.lastElementChild.innerText;
+	// 						if (text == allAnswers[i]) {
+	// 							c.parentNode.style.color = 'lime';
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 			result.firstElementChild.innerHTML = `${totalCorrect} / ${sliderange.value} answered correctly!`;
+	// 			openClose(true,result);
+	// 		}
+	// 	}
+	// 	function getDataQuestions(type=0) {
+	// 		splittedQuestions = getQuestions(totalQuestions,data);
+	// 		correctStudy = [...Array(splittedQuestions.length).fill(0)];
+	// 		console.log(splittedQuestions);
+	// 		if (type == 0) {
+	// 			displayQuestions(splittedQuestions,questions)
+	// 			allAnswers = splittedQuestions.map(x => x.R);
+	// 		} else {
+	// 			studyCardN = 0;
+	// 			progress.value = 0;
+	// 			progress.max = splittedQuestions.length;
+	// 			studyCard(splittedQuestions,bigCard.firstElementChild);
+	// 		}
+	// 	}
+	// 	function displayQuestions(q,output) {
+  //     output.innerHTML = "";
+	// 		for (let i = 0; i < q.length; i++) {
+	// 			let choices = shuffle(q[i].A);
+	// 			let question = q[i].Q;
+	// 			let html = `
+	// 			<div>
+	// 				<div>
+	// 				<p>${i+1}. ${question}</p>
+	// 			`;
+	// 			for (let j = 0; j < choices.length; j++) {
+	// 				html += `
+	// 					<p>
+	// 						<input type="radio" class="choices" name="${i}" id="${i}${j}">
+	// 						<label for="${i}${j}">${choices[j]}</label>
+	// 					</p>
+	// 				`;
+	// 			};
+	// 			html += `
+	// 				</div>
+	// 			</div>
+	// 			`;
+	// 			output.innerHTML += html;
+	// 		}
+	//
+	// 	}
+	// 	function getQuestions(quantity,input) {
+	// 		const max = input.length;
+	// 		newList = []
+	// 		while (newList.length !== quantity) {
+	// 			let rnd = getRndInteger(0,max);
+	// 			if (newList.indexOf(rnd) == -1) {
+	// 				newList.push(rnd);
+	// 			}
+	// 		}
+	// 		newnewList = []
+	// 		for (let i of newList) {
+	// 			newnewList.push(input[i]);
+	// 		}
+	// 		return newnewList
+	// 	}
+	// 	// Custom function for toggling CSS animations after a given time.
+	// 	function toggleAnimate(dom,animateName,time=1400) {
+	// 		dom.classList.toggle(animateName);
+	// 		setTimeout(() =>{
+	// 			dom.classList.toggle(animateName);
+	// 		},time);
+	// 	}
+	// 	// Custom function to open/close popups.
+	// 	function openClose(bool,dom,animateType=1) {
+	// 	  if (bool) {
+	// 	    dom.style.visibility = 'visible';
+	// 	    dom.style.opacity = '1';
+	//
+	// 			if (animateType !== 0) {
+	// 				for (let i = 0; i < dom.childElementCount; i++) {
+	// 					toggleAnimate(dom.children[i],`animate-${animateType}`);
+	// 				}
+	// 			}
+	// 	  } else {
+	// 	    dom.style.visibility = 'hidden';
+	// 	    dom.style.opacity = '0';
+	// 	  }
+	// 	}
+	// 	// Function that operates the study section of the app,
+	// 	// shows and setups other functions for the game to work.
+	// 	function studyCard(q,front) {
+	// 		game = true;
+	// 		if (studyCardN == q.length) {
+	// 			game = false;
+	// 			studyCardN = 0;
+	// 			progress.value = 0;
+	// 			//
+	// 			openClose(false,flipcard);
+	// 			openClose(true,result);
+	// 			result.style.width = "100%";
+	// 			result.style.height = "100%";
+	// 			console.log(correctStudy)
+	// 			result.innerHTML = `<p>${correctStudy.reduce((a,x) => a+x)} / ${sliderange.value} answered correctly!</p> <div></div>`;
+	// 			for (let i = 0; i < q.length; i++) {
+	// 				result.lastElementChild.innerHTML += `
+	// 				<ul>
+	// 					<li ${(correctStudy[i] == 0) ? ('style="color: #ff3b3b;"') : ('style="color: #43ff43;"')}>${q[i].Q}</li>
+	// 					<li>${q[i].R}</li>
+	// 				</ul>
+	// 				`;
+	// 			}
+	// 			// closebutton
+	// 			let closeBtn = document.createElement('button');
+	// 			closeBtn.className = "btn"
+	// 			closeBtn.onclick = () => {
+	// 				openClose(false,result);
+	// 			}
+	// 			closeBtn.innerText = "close";
+	// 			result.lastElementChild.appendChild(document.createElement('br'));
+	// 			result.lastElementChild.appendChild(closeBtn);
+	// 			result.lastElementChild.appendChild(document.createElement('br'));
+	// 			result.lastElementChild.appendChild(document.createElement('br'));
+	// 			//
+	// 			// closebutton
+	// 			let retryBtn = document.createElement('button');
+	// 			retryBtn.className = "btn";
+	// 			retryBtn.onclick = () => {
+	// 				openClose(false,result);
+	// 				openClose(false,flipcard);
+	// 				studyCard(splittedQuestions,bigCard.firstElementChild);
+	// 				openClose(true,flipcard,3);
+	// 			}
+	// 			retryBtn.innerText = "retry";
+	// 			result.lastElementChild.appendChild(retryBtn);
+	// 			//
+	// 			correctStudy = [...Array(splittedQuestions.length).fill(0)];
+	// 		} else {
+	// 			// Displays the question
+	// 			front.innerHTML = `
+	// 			<p>${q[studyCardN].Q}</p>
+	// 			`;
+	// 			// get 4 button cards
+	// 			let rndFour = shuffle(q[studyCardN].A);
+	// 			console.log(`%c ${rndFour} ${studyCardN}`,'color:red');
+	// 			toggleAnimate(bigCard,'animate-2');
+	// 			toggleAnimate(divAnswers,'animate-3');
+	// 			divAnswers.innerHTML = '';
+	// 			for (let i = 0; i < rndFour.length; i++) {
+	// 				let answerBtn = document.createElement('button');
+	// 				answerBtn.innerHTML = `<span>${i+1}</span>${rndFour[i]}`;
+	// 				answerBtn.onclick = function() {
+	// 					// answerBtn.classList.toggle('active');
+	// 					// If not last question
+	// 					if (studyCardN < q.length) {
+	// 						answerBtn.classList.toggle('clickedBtn');
+	// 						let text = this.innerHTML.slice(14,(this.innerHTML).length)
+	// 						console.log(text,q[studyCardN].R)
+	// 						// If correct
+	// 						if (text == q[studyCardN].R) {
+	// 							// Disables all, so no more clicks
+	// 							correctStudy[studyCardN] = 1;
+	// 							// animation correct
+	// 							front.children[0].classList.toggle('correct');
+	// 							this.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
+	// 							this.style.backgroundColor = 'white';
+	// 						} else {
+	// 							front.children[0].classList.toggle('wrong');
+	// 							correctStudy[studyCardN] = 0;
+	// 						}
+	// 						// always
+	// 						for (const dom of divAnswers.children) {
+	// 							dom.disabled = true;
+	// 							if (dom.innerHTML.slice(14,(dom.innerHTML.length)) !== q[studyCardN].R) {
+	// 								dom.classList.add('clickedBtn');
+	// 							} else {
+	// 								dom.style.boxShadow = '0 0 10px 10px rgb(255,230,230)';
+	// 								dom.style.backgroundColor = 'white';
+	// 							}
+	// 						}
+	// 						this.classList.toggle('clickedBtn');
+	// 						setTimeout(() => {
+	// 							studies();
+	// 							progress.value++;
+	// 						},2000);
+	// 					}
+	// 				}
+	// 				divAnswers.appendChild(answerBtn);
+	// 			}
+	// 		}
+	// 	}
+	// 	function studies() {
+	// 		studyCardN++;
+	// 		studyCard(splittedQuestions,bigCard.firstElementChild);
+	// 	}
 	</script>
 </head>
 <body>
