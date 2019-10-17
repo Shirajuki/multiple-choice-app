@@ -59,12 +59,6 @@ body {
   overflow: hidden;
   font-family: Tahoma, Geneva, sans-serif;
 }
-main {
-  overflow: hidden;
-  position: relative;
-}
-
-
 #page1>div>div:first-child {
   background-color: var(--base-color1);
   border-radius: 10px;
@@ -387,7 +381,7 @@ button.btn:active {
   position: absolute;
   display: flex;
   justify-content: center;
-  margin: 10px 0 30px 0;
+  /* margin: 10px 0 30px 0; */
   width: 100%;
   overflow-y: hidden;
 }
