@@ -225,10 +225,107 @@ tdt4109 = [...tdt4109,
   "A": ["At man gjør om kode til maskinkode som datamaskinen kan kjøre direkte","At man endrer på dataen slik at den tar mindre plass, men på bekostning av at originalen ikke kan rekonstrueres","At man endrer representasjon slik at det trengs færre bits til å lagre eller overføre informasjon","At dataen blir pakket tettere sammen på en harddisk. Det blir altså mindre avstand mellom hvert bit"],
   "R": "At man endrer representasjon slik at det trengs færre bits til å lagre eller overføre informasjon"
 },
-// {
-//   "Q": "",
-//   "A": ["","","",""],
-//   "R": ""
-// },
+// 6
+{
+  "Q": "Hvilke fire kategorier av private nettverk har vi?",
+  "A": ["User, Office, Small-to-Medium Business (SMB), Large Business","User, Small Office/Home Office (SOHO), Small-to-Medium Business (SMB), Large Business","Consumer, Small Office/Home Office (SOHO), Small-to-Medium Business (SMB), Large Enterprise","Consumer, Small Office/Home Office (SOHO), Small-to-Medium Business (SMB), Large Business"],
+  "R": "Consumer, Small Office/Home Office (SOHO), Small-to-Medium Business (SMB), Large Enterprise"
+},
+{
+  "Q": "Hva er en protokoll i nettverks-sammenheng?",
+  "A": ["En protokoll er en samling over entiteter i et nettverk.","En protokoll er et sett med regler som bestemmer hvordan informasjonen skal sendes og mottas.","En protokoll er et sett med regler over hvordan applikasjonslaget kommuniserer med nettverkslaget.","En protokoll beskriver innholdet i hver suite (familie)."],
+  "R": "En protokoll er et sett med regler som bestemmer hvordan informasjonen skal sendes og mottas. "
+},
+{
+  "Q": "Hva er IKKE sant om protokoller?",
+  "A": ["Det er ofte to-tre protokoller som håndterer de samme delene av kommunikasjonen.","Familier (engelsk: suites) er komplette samarbeidende sett medprotokoller.","Protokoller i en familie (suite) er organisert i lag.","Output fra en protokoll i et lag er input til en protokoll i neste lag."],
+  "R": "Det er ofte to-tre protokoller som håndterer de samme delene av kommunikasjonen."
+},
+{
+  "Q": "I hvilket lag i TCP/IP referansemodellen finner man HTTP, SMTP, og FTP?",
+  "A": ["Applikasjonslaget","Nettverkslaget","Transportlaget","Linklaget"],
+  "R": "Applikasjonslaget"
+},
+{
+  "Q": "Hvilket alternativ er ikke et lag i TCP/IP stabelen (stack)?",
+  "A": ["Det fysiske laget","Nettverksgrensesnitt-laget","Sammenkoblingslaget","Internettlaget"],
+  "R": "Sammenkoblingslaget"
+},
+{
+  "Q": "Hva er IKKE sant om rutere?",
+  "A": ["Rutere er maskinvarer med prosessor, minne og I/O-grensesnitt som brukes for å koble sammen heterogene nettverk.","Rutere kan koble sammen ulike typer nettverk og ulike nettverksteknologier.","Det er ofte mer gunstig med én ruter for å koble sammen mange nettverk i stedet for flere.","Rutere bruker protokoller for å støtte kommunikasjon mellom ulike typer nettverk."],
+  "R": "Det er ofte mer gunstig med én ruter for å koble sammen mange nettverk i stedet for flere."
+},
+{
+  "Q": "Hvilken type adresser bruker vi på Nettverksgrensesnitt-laget?",
+  "A": ["MAC-adresser","Spenning i kobber","IP-adresser","URL-adresser"],
+  "R": "MAC-adresser"
+},
+{
+  "Q": "Hva brukes størsteparten av internettkapasiteten på i dag?",
+  "A": ["E-post","Musikk","Video","Spilling"],
+  "R": "Video"
+},
+{
+  "Q": "Hva er riktig for RAC paritet?",
+  "A": ["RAC kan avdekke multi-bit feil, men ikke korrigere dem.","RAC kan avdekke multi-bit feil og korrigere dem.","RAC kan avdekke feil i tilfeller hvor et odde antall bits har endret seg, men kan ikke korrigere. Uansett hvor mange bit som er feil.","RAC deler data inn i 16-bits enheter og legger til 0-er til slutt for å fylle opp siste enhet ved behov."],
+  "R": "RAC kan avdekke multi-bit feil, men ikke korrigere dem."
+},
+{
+  "Q": "<img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/6-10.png?raw=true'/>Dersom vi sender følgende bitsekvens vist i tabellen over, hva må xxxx, yyyy og z være når vi bruker Row and Column parity?",
+  "A": ["xxxx=1010, yyyy=1001, z=1","xxxx=1010, yyyy=1001, z=0","xxxx=0101, yyyy=0110, z=1","xxxx=0101, yyyy=0110, z=1"],
+  "R": "xxxx=1010, yyyy=1001, z=0"
+},
+// 7
+{
+  "Q": "Gjør om det binære flyttallet 1101.1011 til desimaltall",
+  "A": ["13.11","9.2022","13.8525","13.6875"],
+  "R": "13.6875"
+},
+{
+  "Q": "Hva er forskjellen på single og double precision flyttall",
+  "A": ["Double precision bruker dobbelt så mange bytes (8) til å representere tallet.","Double precision kan representere dobbelt så mange tall.","Double precision kan korrekt representere dobbelt så mange signifikante siffere nøyaktig.","Double precision kan gjøre regneoperasjoner dobbelt så raskt på moderne datamaskiner."],
+  "R": "Double precision bruker dobbelt så mange bytes (8) til å representere tallet."
+},
+{
+  "Q": "Et bilde 10 x 10 tommer bilde er skannet til 326 piksler per tomme.Hver piksel er representert ved en RGB-verdi. Hvor stor lagringsplass krever dette bildet?",
+  "A": ["31.9 MB","4.00 MB","10.6 MB","1.32 MB"],
+  "R": "31.9 MB"
+},
+{
+  "Q": "Hvor mange forskjellige fargealternativer kan representeres med RGB farger med 1 byte per farge?",
+  "A": ["16.7 millioner","2.8 milliarder","256","768"],
+  "R": "16.7 millioner"
+},
+{
+  "Q": "Hva er riktig om JPG komprimering?",
+  "A": ["JPG er en type tapsløs komprimering. Da kan den originale versjonen enkelt rekonstrueres fra den komprimerte versjonen.","JPG representerer bilder uten synlig tap av klarhet ved opp til 100:1 komprimering.","JPG er svært god på å representere datagrafikk, men har problemer med å representere fotografier korrekt.","JPG komprimerer med tap ved å lage forenklinger som ikke er så synlig for menneske."],
+  "R": "JPG komprimerer med tap ved å lage forenklinger som ikke er så synlig for menneske."
+},
+{
+  "Q": "Et bilde på 15 x 15 tommer skannes med 8 megapikslers representasjon. Hvor mange piksler per tomme gir dette?",
+  "A": ["189","128","256","227"],
+  "R": "189"
+},
+{
+  "Q": "Hvor mange forskjellige lydnivåer kan 16 bit digital CD lyd representere?",
+  "A": ["16 000","65 536","32 768","131 072"],
+  "R": "65 536"
+},
+{
+  "Q": "Hvor mange bytes tar 3 minutter stereolyd på en CD-plate?",
+  "A": ["80.22 kB","31.75 MB","20.28 kB","1.024 MB"],
+  "R": "31.75 MB"
+},
+{
+  "Q": "Hva er feil om digital representasjon av lyd?",
+  "A": ["Digitale lydfiler kan databehandles til å ta opp mindre plass","Digital data kan reproduseres nøyaktig","Digitale data degenereres over tid og det er derfor viktig med analog backup av viktige opptak","Digitale lydfiler representerer hver lydnivå som en diskret verdi"],
+  "R": "Digitale data degenereres over tid og det er derfor viktig med analog backup av viktige opptak"
+},
+{
+  "Q": "Hva er feil om flyttall?",
+  "A": ["Flyttall kan ikke representere alle tall eksakt","Flyttall brukes bare til å representere små desimaltall","Flyttall bruker fortegnsbit til å skille mellom positive og negative tall","Flyttall brukes både for å representere svært store og svært små tall"],
+  "R": "Flyttall brukes bare til å representere små desimaltall"
+},
 // Package switching, ISP, SOHO, SMB, SDN vs ISDN, DSL: voice0-4kHz -> data:25kHz-1.5MhZ, protekoller, interference, distortion, attenuation, FIXfeil: FEC og ARQ
 ];
