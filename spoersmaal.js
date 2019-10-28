@@ -272,7 +272,7 @@ tdt4109 = [...tdt4109,
   "R": "RAC kan avdekke multi-bit feil, men ikke korrigere dem."
 },
 {
-  "Q": "<img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/6-10.png?raw=true'/>Dersom vi sender følgende bitsekvens vist i tabellen over, hva må xxxx, yyyy og z være når vi bruker Row and Column parity?",
+  "Q": "<img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/6-10.png?raw=true'/><br/>Dersom vi sender følgende bitsekvens vist i tabellen over, hva må xxxx, yyyy og z være når vi bruker Row and Column parity?",
   "A": ["xxxx=1010, yyyy=1001, z=1","xxxx=1010, yyyy=1001, z=0","xxxx=0101, yyyy=0110, z=1","xxxx=0101, yyyy=0110, z=1"],
   "R": "xxxx=1010, yyyy=1001, z=0"
 },
@@ -327,5 +327,63 @@ tdt4109 = [...tdt4109,
   "A": ["Flyttall kan ikke representere alle tall eksakt","Flyttall brukes bare til å representere små desimaltall","Flyttall bruker fortegnsbit til å skille mellom positive og negative tall","Flyttall brukes både for å representere svært store og svært små tall"],
   "R": "Flyttall brukes bare til å representere små desimaltall"
 },
+// 8 auditorieøving
+
+// 9
+{
+  "Q": "Hva er et intranett?",
+  "A": ["Et internett eid av en organisasjon eller bedrift hvor bare interne har adgang.","Dit lokale nettverk bestående av en datamaskin, nærmeste ruter og eventuelle andre enheter koblet på nettverket.","Et nettverk som oppstår når du kobler deg til ruteren med kabel.","Forgjengeren til internett, brukte linjesvitsjing. "],
+  "R": "Et internett eid av en organisasjon eller bedrift hvor bare interne har adgang.
+},
+{
+  "Q": "Hva er sant om linje- og pakke-svitsjing?",
+  "A": ["Informasjonen i linjesvitsjede nettverk deles inn i mindre blokker med data kalt datagram.","I linje-svitsjing opprettes koblingen mellom partene ved behov, og avsluttes etter endt bruk.","Kommunikasjonen mellom to parter i pakkesvitsjede nettverk påvirkes ikke av kommunikasjon mellom andre.","Linje-svitsjing gir mer effektiv utnyttelse av nettverksressurser."],
+  "R": "I linje-svitsjing opprettes koblingen mellom partene ved behov, og avsluttes etter endt bruk."
+},
+{
+  "Q": "Hva står forkortelsen WAN for i forbindelse med nettverk?",
+  "A": ["World Area Network","Wide Area Network","Weak Area Network","Wired Area Network"],
+  "R": "Wide Area Network"
+},
+{
+  "Q": "Hvilken av disse er en form for topologi?",
+  "A": ["Circle","Grid","Bus","Chain"],
+  "R": "Bus"
+},
+{
+  "Q": "Hva er sant om MAC-adressen?",
+  "A": ["Den andre blokken spesifiserer utstyrsleverandøren, og den tredje blokken spesifiserer en unik verdi som utstyrsleverandøren gir den spesifikke maskinvaren.","Den første blokken spesifiserer utstyrsleverandøren, og den andre blokken spesifiserer en unik verdi som utstyrsleverandøren gir den spesifikke maskinvaren.","Den består av 32 bit som er delt inn i to 2 bytes blokker.","Bit nr. 5 og 6 i den første blokken spesifiserer henholdsvis om denførste blokken er globalt unik eller lokalt tilordnet, og om adressen erunicast eller multicast."],
+  "R": "Den første blokken spesifiserer utstyrsleverandøren, og den andre blokken spesifiserer en unik verdi som utstyrsleverandøren gir den spesifikke maskinvaren."
+},
+{
+  "Q": "Hvorfor har vi behov for IPv6?",
+  "A": ["Vi kan sende mye mer data med IPv6.","IPv6 gjør addresseringen mye enklere.","Vi holder på å gå tomme for IPv4 adresser.","Med IPv6 kan vi sende data mye raskere."],
+  "R": "Vi holder på å gå tomme for IPv4 adresser."
+},
+{
+  "Q": "Hvilken notasjonsform, av alternativene under, er vanligst å bruke for en IPv6-adresse?",
+  "A": ["Dotted decimal notation","Binary notation","Full hexa-compression notation","Colon hexadecimal notation"],
+  "R": "Colon hexadecimal notation"
+},
+{
+  "Q": "Hva identifiserer IP-suffikset?",
+  "A": ["Det unike fysiske nettverket en datamaskin er tilknyttet.","En spesifikk datamaskin på nettverket.","Om en datamaskin er en ruter eller ikke.","Hvilke datamaskiner som tilhører et nettverk."],
+  "R": "En spesifikk datamaskin på nettverket."
+},
+{
+  "Q": "Hvilken er ikke en type adressering vi bruker når det kommer til pakkelevering?",
+  "A": ["Broadcast","Typecast","Unicast","Multicast"],
+  "R": "Typecast"
+},
+{
+  "Q": "Hvor mange bit består IPv4 og IPv6 adresser av?",
+  "A": ["IPv4: 32 bit; IPv6: 128 bit","IPv4: 64 bit; IPv6: 128 bit","IPv4: 48 bit; IPv6: 64 bit","IPv4: 24 bit; IPv6: 256 bit"],
+  "R": "IPv4: 32 bit; IPv6: 128 bit"
+},
 // Package switching, ISP, SOHO, SMB, SDN vs ISDN, DSL: voice0-4kHz -> data:25kHz-1.5MhZ, protekoller, interference, distortion, attenuation, FIXfeil: FEC og ARQ
+// {
+//   "Q": "",
+//   "A": ["","","",""],
+//   "R": ""
+// },
 ];
