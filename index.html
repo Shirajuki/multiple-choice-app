@@ -1,15 +1,20 @@
 <!doctype html>
 <html>
 <head>
-	<title>Jonny</title>
+	<title>Multiple-choice-app</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<link href="css/index.css" rel="stylesheet" type="text/css">
 	<link href="css/preloader.css" rel="stylesheet" type="text/css">
+	<link rel="manifest" href="manifest.json">
+	<script type='text/javascript' src='spoersmaal1.js'></script>
 	<script type='text/javascript' src='spoersmaal2.js'></script>
-	<script type='text/javascript' src='spoersmaal.js'></script>
+	<script type='text/javascript' src='spoersmaal3.js'></script>
 	<script type="text/javascript">
 	// https://emojipedia.org/symbols/
+	if ('serviceWorker' in navigator) {
+	  navigator.serviceWorker.register('service-worker.js');
+	}
 	const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min) ) + min;
 	const shuffle = array => array.sort(() => Math.random() - 0.5);
 		setTimeout(showPage, 1400);
