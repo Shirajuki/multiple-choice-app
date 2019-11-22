@@ -277,7 +277,7 @@
 				closeBtn.onclick = () => {
 					openClose(false,result);
 				}
-				closeBtn.innerText = "close";
+				closeBtn.innerText = "Close";
 				result.lastElementChild.appendChild(document.createElement('br'));
 				result.lastElementChild.appendChild(closeBtn);
 				result.lastElementChild.appendChild(document.createElement('br'));
@@ -292,7 +292,7 @@
 					studyCard(splittedQuestions,bigCard.firstElementChild);
 					openClose(true,flipcard,3);
 				}
-				retryBtn.innerText = "retry";
+				retryBtn.innerText = "Retry the same set";
 				result.lastElementChild.appendChild(retryBtn);
 				//
 				correctStudy = [...Array(splittedQuestions.length).fill(0)];
@@ -407,6 +407,7 @@
 							<label for="data8">????</label>
 						</p>
 					</div>
+					<p>Amount of questions: </p>
 					<input id="sliderange" type="range" name="" min="1" max="30" value="2"/>
 					<p id="sliderangedsp">69</p>
 				</div>

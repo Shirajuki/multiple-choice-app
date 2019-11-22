@@ -457,9 +457,4 @@ tdt4109 = [...tdt4109,
   "R": "O(n)"
 },
 // Package switching, ISP, SOHO, SMB, SDN vs ISDN, DSL: voice0-4kHz -> data:25kHz-1.5MhZ, protekoller, interference, distortion, attenuation, FIXfeil: FEC og ARQ
-// {
-  //   "Q": "",
-  //   "A": ["","","",""],
-  //   "R": ""
-  // },
 ];

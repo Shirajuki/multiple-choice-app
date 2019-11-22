@@ -20,7 +20,7 @@ var tdt4109 = [
   "R": "processor"
 },
 {
-  "Q": "What is educational background is required to write algorithms?",
+  "Q": "Whats educational background is required to write algorithms?",
   "A": ["BS in computer science or computer engineering","MS in computer science or computer engineering","a high school diploma","no educational background is required"],
   "R": "no educational background is required"
 },
