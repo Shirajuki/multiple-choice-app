@@ -299,8 +299,9 @@
 			} else {
 				// Displays the question
 				front.innerHTML = `
-				<p>${q[studyCardN].Q}</p>`;
-				if (q[studyCardN.Q.length >= 150]) {
+				<p>${q[studyCardN].Q}</p>
+				`;
+				if (q[studyCardN].Q.length >= 150) {
 					front.innerHTML = `
 					<p style="font-size: 0.9rem;">${q[studyCardN].Q}</p>
 					`;
