@@ -299,8 +299,12 @@
 			} else {
 				// Displays the question
 				front.innerHTML = `
-				<p>${q[studyCardN].Q}</p>
-				`;
+				<p>${q[studyCardN].Q}</p>`;
+				if (q[studyCardN.Q.length >= 150]) {
+					front.innerHTML = `
+					<p style="font-size: 0.9rem;">${q[studyCardN].Q}</p>
+					`;
+				}
 				// get 4 button cards
 				let rndFour = shuffle(q[studyCardN].A);
 				console.log(`%c ${rndFour} ${studyCardN}`,'color:red');
