@@ -492,15 +492,7 @@ tdt4109 = [...tdt4109,
 },
 {
     'Q': `Hva er kjøretids-kompleksiteten til algoritmen LargestNumber som beskrevet under?
-    <code>Algorithm LargestNumber
-     Input: A list of numbers L.
-     Output: The largest number in the list L.
-     if L.size = 0 return null
-     largest ← L[0]
-     for each item in L, do
-     if item > largest, then
-     largest ← item
-     return largest</code>`,
+    <br><img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/2017-20.png?raw=true'/>`,
     'A': ['Θ(0)', 'Θ(1)', 'Θ(n)', 'Θ(n log n)'],
     'R': 'Θ(n)'
 },
@@ -856,7 +848,7 @@ tdt4109 = [...tdt4109,
   'R': '0000ff'
 },
 {
-  'Q': "Vi har en liste av navn, à la liste = [ 'Jo Å', 'Geir Li', 'Ine By'] men i praksis med vesentlig flere navn enn dette. Lista er ikke sortert og kan inneholde duplikater (dvs. samme navn kan stå flere sted i lista). Vi skal skrive en funksjon antall (liste, navn) som skal returnere et heltall som sier hvor mange ganger navnet forekommer i lista. Vi kladder følgende pseudokode:",
+  'Q': "Vi har en liste av navn, à la liste = [ 'Jo Å', 'Geir Li', 'Ine By'] men i praksis med vesentlig flere navn enn dette. Lista er ikke sortert og kan inneholde duplikater (dvs. samme navn kan stå flere sted i lista). Vi kladder følgende pseudokode: <br><img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/2015-8.png?raw=true'/>",
   'A': ['O(n)', 'O(n log n)', 'O(log n)', 'O(n2)'],
   'R': 'O(n)'
 },
@@ -867,11 +859,7 @@ tdt4109 = [...tdt4109,
 },
 {
   'Q': `Funksjonen antall for ei usortert liste, som beskrevet i spørsmål 8, kan i Python implementeres ved den innebygde funksjonen count, som gjør at funksjonskroppen kan skrives som en eneste kodelinje. For eksempel
-  <code>
-  def antall (liste, navn):
-    return liste.count(navn)
-  </code>
-  Spørsmål: Hvilken kjøretidskompleksitet vil denne koden ha?`,
+  <br/><img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/2015-10.png?raw=true'/>`,
   'A': ['O(1)', 'O(log n)', 'O(n)', 'O(n2)'],
   'R': 'O(n)'
 },
@@ -1184,7 +1172,8 @@ tdt4109 = [...tdt4109,
   'R': 'kilo, mega, giga, tera'
 },
 {
-  'Q': 'Gitt følgende funksjon: <code>funksjon(n): if n < 0: return n + funksjon(n+1) else if n> 0: return n + funksjon(n-1) else: return 0 Hva kalles den kodeblokken som kjøres hvis n==0?</code>',
+  'Q': `<img src='https://github.com/Shirajuki/multiple-choice-app/blob/master/img/2014k-7.png?raw=true'/><br>
+  Hva kalles den kodeblokken som kjøres hvis n==0?</code>`,
   'A': ['rekursiv del (recursive case)', 'iterasjonsdel (iterative case)', 'basistilfelle (base case)', 'returklausul (return case)'],
   'R': 'basistilfelle (base case)'
 },
@@ -1272,8 +1261,8 @@ tdt4109 = [...tdt4109,
   'Q': 'Brannmur (firewall) er en type sikkerhetsteknologi. Hva er den mest korrekte og relevante påstanden når det gjelder brannmurer og trusler fra såkalte trojanske hester ("Trojan Horses")?',
   'A': ['Brannmurer kan verne mot trojanske hester ved å hindre uventet internett-trafikk fra utsida og inn til et system.', 'Brannmurer kan verne mot trojanske hester ved å hindre uventet trafikk fra innsiden og ut til internett.', 'Brannmurer kan verne mot trojanske hester ved å advare brukerne mot å åpne falske epostmeldinger.', 'Brannmurer gir IKKE vern mot trojanske hester. Bare antivirusprogramvare er effektivt mot trojanske hester.'],
   'R': 'Brannmurer kan verne mot trojanske hester ved å hindre uventet trafikk fra innsiden og ut til internett.'
-}, {
-
+},
+{
   'Q': 'Hva er en viktig forskjell mellom systemtesting og akseptansetesting?',
   'A': ['Systemtesting fokuserer på å finne feil i et program, mens akseptansetesting fokuserer på de delene som fungerer.', 'Systemtesting bruker gjerne oppkonstruerte testdata mens akseptansetesting bruker data fra kunden som skal ha systemet.', 'Systemtesting tester bare systemet modul for modul, mens akseptansetesting tester hele systemet i et.', 'Systemtesting kan gjøres av personell som ikke kan programmere, mens akseptansetesting må gjøres av personell som også kan programmere, for å rette uakseptable feil.'],
   'R': 'Systemtesting bruker gjerne oppkonstruerte testdata mens akseptansetesting bruker data fra kunden som skal ha systemet.'
