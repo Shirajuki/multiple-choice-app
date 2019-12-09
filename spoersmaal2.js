@@ -235,7 +235,7 @@ tdt4109 = [...tdt4109,
 {
   "Q": "Hva er en protokoll i nettverks-sammenheng?",
   "A": ["En protokoll er en samling over entiteter i et nettverk.","En protokoll er et sett med regler som bestemmer hvordan informasjonen skal sendes og mottas.","En protokoll er et sett med regler over hvordan applikasjonslaget kommuniserer med nettverkslaget.","En protokoll beskriver innholdet i hver suite (familie)."],
-  "R": "En protokoll er et sett med regler som bestemmer hvordan informasjonen skal sendes og mottas. "
+  "R": "En protokoll er et sett med regler som bestemmer hvordan informasjonen skal sendes og mottas."
 },
 {
   "Q": "Hva er IKKE sant om protokoller?",
